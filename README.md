@@ -47,3 +47,20 @@ pip install matplotlib
    ```bash
    go mod tidy
    ```
+
+## 🏃 Usage
+
+### 🐧 Mac / Linux (via Makefile)
+You can use `make` to trigger specific pipelines. (Ensure you have a `Makefile` configured).
+
+```bash
+# Run the Wikipedia pipeline using a specific python interpreter
+make wiki PYTHON=python3
+
+# Run the Reddit pipeline
+make reddit PYTHON=python3
+```
+### Windows
+```bash
+go run .
+```
