@@ -4,6 +4,42 @@
 
 It includes a **Python** companion script for instant statistical analysis and token distribution visualization.
 
+## 🛠️ Pipeline Architecture
+
+This project uses a concurrent Go pipeline to scrape and format training data. It supports three distinct modes:
+
+```mermaid
+graph TD
+    Start([🚀 Start Pipeline]) --> Mode{Select Mode}
+    
+    %% Wiki Branch
+    Mode -- "wiki" --> S1_Wiki["📄 Read urls.csv"]
+    S1_Wiki --> D_Wiki["🌐 Download HTML<br/>(20 Concurrent Workers)"]
+    D_Wiki --> P_Wiki["🧹 Extract Pure Text<br/>(Remove HTML/Refs)"]
+    P_Wiki --> W_Wiki["💾 Write to dataset_wiki.txt"]
+
+    %% Reddit Branch
+    Mode -- "reddit" --> S1_Reddit["🕷️ Fetch Common Crawl Links"]
+    S1_Reddit --> D_Reddit["🌐 Download HTML<br/>(20 Concurrent Workers)"]
+    D_Reddit --> P_Reddit["💬 Extract User/Bot Pairs<br/>(old.reddit parser)"]
+    P_Reddit --> W_Reddit["💾 Write to dataset_reddit.txt"]
+
+    %% Stack Branch
+    Mode -- "stack" --> S1_Stack["📂 Stream XML Directory"]
+    S1_Stack --> P_Stack["🔗 Link Questions to Answers<br/>(Accepted Only)"]
+    P_Stack --> W_Stack["💾 Write to dataset_stack.txt"]
+
+    %% Analysis Stage
+    W_Wiki --> Analysis
+    W_Reddit --> Analysis
+    W_Stack --> Analysis
+
+    subgraph Final Stage
+    Analysis["🐍 Run analyze_dataset.py"] --> Stats["📊 Console Stats"]
+    Analysis --> Plot["📈 Generate Distribution PNG"]
+    end
+```
+
 ## 🚀 Features
 
 * **⚡ High Concurrency:** Uses Go Routines and Worker Pools (Semaphore pattern) to saturate network bandwidth without overloading the CPU.
