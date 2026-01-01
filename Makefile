@@ -10,7 +10,7 @@ GC_FLAGS=GOGC=200
 # Generic runner helper
 run:
 	@echo "--- Launching $(MODE) Pipeline with $(PYTHON) ---"
-	$(GC_FLAGS) go run $(GO_FLAGS) main.go
+	$(GC_FLAGS) go run $(GO_FLAGS) .
 
 # Specific targets
 wiki:
