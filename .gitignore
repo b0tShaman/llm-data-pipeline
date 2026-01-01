@@ -416,3 +416,8 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+
+# Virtual environments
+/venv
+*.png
+dataset_*.txt
