@@ -1,6 +1,6 @@
 # Data pipeline for mini-GPT
 
-**llm-data-pipeline** is a high-performance, concurrent ETL (Extract, Transform, Load) pipeline written in **Go**. It is designed to scrape, clean, and format data from various sources (Wikipedia, Reddit, StackOverflow) into a unified dataset suitable for training "mini-GPT"(https://github.com/b0tShaman/mini-GPT.git).
+**llm-data-pipeline** is a ETL (Extract, Transform, Load) pipeline written in **Go**. It is designed to scrape, clean, and format data from various sources (Wikipedia, Reddit, StackOverflow) into a unified dataset suitable for training "mini-GPT"(https://github.com/b0tShaman/mini-GPT.git).
 
 It includes a **Python** companion script for instant statistical analysis and token distribution visualization.
 
