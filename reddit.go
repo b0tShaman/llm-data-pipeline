@@ -120,7 +120,7 @@ func (e *ExtractTextReddit) Stage(ctx context.Context, in chan Task) chan Task {
 
 			// Basic validation to ensure we have content
 			if len(questionText) > 10 && len(answerText) > 10 {
-				formatted := fmt.Sprintf("<user>: %s\n<bot>: %s\n<eos>\n",
+				formatted := fmt.Sprintf("<user>: %s\n<bot>: %s<eos>\n",
 					cleanText(questionText),
 					cleanText(answerText))
 

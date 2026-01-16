@@ -91,17 +91,19 @@ def analyze(filepath):
         with open(filepath, "r", encoding="utf-8", errors="replace") as f:
             for line in f:
                 stripped = line.strip()
-                if stripped == "<eos>":
-                    if current_tokens > 0:
-                        token_counts.append(current_tokens)
-                        sample_count += 1
-                    current_tokens = 0
+                # Skip empty lines to prevent skewing stats
+                if not stripped:
                     continue
-
-                # Update stats
+                # Add tokens for this line
                 current_tokens += len(stripped.split())
                 char_counter.update(line)
                 total_chars += len(line)
+
+                # Does this line mark the end of a sample?
+                if stripped.endswith("<eos>"):
+                    token_counts.append(current_tokens)
+                    sample_count += 1
+                    current_tokens = 0  # Reset for the next sample
 
     except FileNotFoundError:
         print("❌ Error: File not found.")

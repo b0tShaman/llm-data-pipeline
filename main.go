@@ -27,29 +27,39 @@ func main() {
 			&StreamURL{Filepath: "urls.txt"},
 			&DownloadURL{NumWorkers: 20},
 			&ExtractTextWiki{},
-			&WritePlainText{Filepath: "dataset_wiki.txt"},
-			&AnalyzeDataset{Filepath: "dataset_wiki.txt", PythonPath: pythonCmd},
+			&GenerateQAWiki{ModelName: "gemma3:1b"},
+			&WriteQA{Filepath: "analyze_wiki.txt"},
+			&AnalyzeDataset{Filepath: "analyze_wiki.txt", PythonPath: pythonCmd},
+			// Create the final dataset with FlattenLines
+			&FlattenLines{SkipEOS: true},
+			&WriteQA{Filepath: "dataset_wiki.txt"},
 		}
 	case "reddit":
 		stages = []Pipeline{
 			&FetchLinks{
 				CCIndex:      "CC-MAIN-2023-50",
-                NumPages:     15,
+				NumPages:     15,
 				Label:        "Reddit",
 				QueryPattern: "*.reddit.com/r/*/comments/*/*/*", // Catch all, then convert to old.reddit
 				Target:       5000,
 			},
 			&DownloadURL{NumWorkers: 20},
 			&ExtractTextReddit{},
+			&WriteQA{Filepath: "analyze_reddit.txt"},
+			&AnalyzeDataset{Filepath: "analyze_reddit.txt", PythonPath: pythonCmd},
+			// Create the final dataset with FlattenLines
+			&FlattenLines{SkipEOS: true},
 			&WriteQA{Filepath: "dataset_reddit.txt"},
-            &AnalyzeDataset{Filepath: "dataset_reddit.txt", PythonPath: pythonCmd},
 		}
 	case "stack":
 		stages = []Pipeline{
 			&StreamXMLFiles{Directory: "./xml_dump"},
 			&ProcessStackExchangeXML{MinScore: 1},
-			&WriteQA{Filepath: "dataset_stackoverflow.txt"},
-            &AnalyzeDataset{Filepath: "dataset_stackoverflow.txt", PythonPath: pythonCmd},
+			&WriteQA{Filepath: "analyze_stackoverflow.txt"},
+			&AnalyzeDataset{Filepath: "analyze_stackoverflow.txt", PythonPath: pythonCmd},
+			// Create the final dataset with FlattenLines
+			&FlattenLines{SkipEOS: true},
+			&WriteQA{Filepath: "dataset_stack.txt"},
 		}
 	}
 
