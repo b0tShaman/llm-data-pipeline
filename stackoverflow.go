@@ -121,7 +121,7 @@ func (p *ProcessStackExchangeXML) Stage(ctx context.Context, in chan Task) chan 
 				aText := cleanText(ansBody)
 
 				// Format: <user>: ... <bot>: ...
-				formatted := fmt.Sprintf("<user>: %s\n<bot>: %s<eos>\n", qText, aText)
+				formatted := fmt.Sprintf("<user>: %s\n<bot>: %s\n<eos>\n", qText, aText)
 				results = append(results, formatted)
 			}
 		}

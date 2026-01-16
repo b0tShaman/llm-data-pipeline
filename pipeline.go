@@ -24,7 +24,7 @@ type DownloadURL struct {
 
 // Merge consecutive lines, preserving tags like <user>:, <bot>:, and <eos>
 type FlattenLines struct {
-    SkipEOS bool
+	SkipEOS bool
 }
 
 type WritePlainText struct {

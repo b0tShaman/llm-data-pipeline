@@ -284,7 +284,7 @@ func (g *GenerateQAWiki) Stage(ctx context.Context, in chan Task) chan Task {
 
 				// 3. Construct the EXACT format you want in Go
 				// We attach the <eos> tag here manually.
-				formattedEntry := fmt.Sprintf("<user>: %s\n<bot>: %s <eos>\n", qaResponse, cleanPara)
+				formattedEntry := fmt.Sprintf("<user>: %s\n<bot>: %s\n<eos>\n", qaResponse, cleanPara)
 
 				// 4. Append the formatted result
 				finalQAContent.WriteString(formattedEntry)

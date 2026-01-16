@@ -6,6 +6,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 	"strings"
 	"time"
@@ -40,7 +41,7 @@ func (f *FetchLinks) Stage(ctx context.Context, in chan Task) chan Task {
 		apiURLBase := fmt.Sprintf("http://index.commoncrawl.org/%s-index?url=%s&output=json", f.CCIndex, f.QueryPattern)
 
 		for p := 0; p < f.NumPages; p++ {
-			fmt.Printf("[*] %s: Scanning Page %d (Found: %d/%d)\n", f.Label, p, count, f.Target)
+			log.Printf("[*] %s: Scanning Page %d (Found: %d/%d)\n", f.Label, p, count, f.Target)
 
 			fullURL := fmt.Sprintf("%s&page=%d", apiURLBase, p)
 			resp, err := http.Get(fullURL)
@@ -120,7 +121,7 @@ func (e *ExtractTextReddit) Stage(ctx context.Context, in chan Task) chan Task {
 
 			// Basic validation to ensure we have content
 			if len(questionText) > 10 && len(answerText) > 10 {
-				formatted := fmt.Sprintf("<user>: %s\n<bot>: %s<eos>\n",
+				formatted := fmt.Sprintf("<user>: %s\n<bot>: %s\n<eos>\n",
 					cleanText(questionText),
 					cleanText(answerText))
 

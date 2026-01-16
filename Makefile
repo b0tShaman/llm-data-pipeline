@@ -22,5 +22,11 @@ reddit:
 stack:
 	$(MAKE) run MODE=stack
 
+all:
+	$(MAKE) wiki PYTHON=$(PYTHON)
+	$(MAKE) reddit PYTHON=$(PYTHON)
+	$(MAKE) stack PYTHON=$(PYTHON)
+
 clean:
 	rm -f $(BINARY_NAME) dataset_*.txt
+	rm -f $(BINARY_NAME) analyze_*.txt*

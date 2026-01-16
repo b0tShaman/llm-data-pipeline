@@ -421,3 +421,4 @@ FodyWeavers.xsd
 /venv
 *.png
 dataset_*.txt
+analyze_*.txt*
